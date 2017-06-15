@@ -17,6 +17,17 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/**
+ * SimpleFramework Project
+ *
+ * @author PeratX
+ * @link https://itxtech.org
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ */
 public class MainActivity extends AppCompatActivity implements Handler.Callback{
     public final static String name = "SimpleFramework";
     public final static int ACTION_STOP_SERVICE = 0;
