@@ -23,7 +23,7 @@ public class FrameworkService extends Service {
         startForeground(1, new NotificationCompat.Builder(getApplicationContext()).setOngoing(true)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentText(getString(R.string.message_tap_open))
-                .setContentTitle(MainActivity.name + getString(R.string.message_running))
+                .setContentTitle(MainActivity.name + " " + getString(R.string.message_running))
                 .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(getApplicationContext(), MainActivity.class), 0))
                 .build());
         return START_NOT_STICKY;
