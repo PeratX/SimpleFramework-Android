@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">SimpleFramework</string>
+
+    <string name="activity_main">SimpleFramework</string>
+    <string name="activity_console">Console</string>
+
+    <string name="label_management">Framework Management</string>
+    <string name="label_console">Console Customize</string>
+    <string name="label_console_fontsize">Font Size:</string>
+
+    <string name="button_stop">Stop Framework</string>
+    <string name="button_start">Start Framework</string>
+    <string name="button_send">Send</string>
+
+    <string name="menu_console">Console</string>
+    <string name="menu_clear">Clear</string>
+    <string name="menu_copy">Copy</string>
+
+    <string name="message_copied">Copied.</string>
+    <string name="message_running">is running</string>
+    <string name="message_tap_open">Tap to open Pocket Server</string>
+</resources>

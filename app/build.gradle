@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+
+def gitCommit = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "org.itxtech.simpleframework"
+        minSdkVersion 21
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0.0"
+
+        buildConfigField "String", "BUILD_TIME", "\"${System.currentTimeMillis()}\""
+        buildConfigField "String", "GIT_COMMIT", "\"${gitCommit}\""
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFile.name.replace("app", "${defaultConfig.applicationId}_${defaultConfig.versionName}_${gitCommit}")
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    testCompile 'junit:junit:4.12'
+}
