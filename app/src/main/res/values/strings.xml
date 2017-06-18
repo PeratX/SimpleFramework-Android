@@ -7,6 +7,7 @@
     <string name="label_management">Framework Management</string>
     <string name="label_console">Console Customize</string>
     <string name="label_console_fontsize">Font Size:</string>
+    <string name="label_start_param">Start Param:</string>
 
     <string name="button_stop">Stop Framework</string>
     <string name="button_start">Start Framework</string>
@@ -18,5 +19,5 @@
 
     <string name="message_copied">Copied.</string>
     <string name="message_running">is running</string>
-    <string name="message_tap_open">Tap to open Pocket Server</string>
+    <string name="message_tap_open">Tap to open SimpleFramework</string>
 </resources>

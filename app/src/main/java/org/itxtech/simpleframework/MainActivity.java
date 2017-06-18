@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback{
 
     private Button buttonStart = null;
     private Button buttonStop = null;
+    private EditText editStartParam = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback{
             public void onClick(View v) {
                 isStarted = true;
                 startService(serverIntent);
-                FrameworkExecutor.runFramework();
+                FrameworkExecutor.run(editStartParam.getText().toString());
                 refreshEnabled();
             }
         });
@@ -89,6 +92,13 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback{
                 ConsoleActivity.fontSize = p1.getProgress();
             }
         });
+
+        editStartParam = (EditText) findViewById(R.id.edit_start_param);
+        editStartParam.setText("--enable-ansi");
+
+        TextView textInfo = (TextView) findViewById(R.id.text_info);
+        textInfo.setText("Version: " + BuildConfig.VERSION_NAME + "_" + BuildConfig.GIT_COMMIT + "\n"
+            + "Copyright (C) iTX Technologies All rights reserved.");
 
         ConsoleActivity.fontSize = seekBarFontSize.getProgress();
 
@@ -123,14 +133,13 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback{
         return false;
     }
 
-    public void refreshEnabled(){
+    private void refreshEnabled(){
         buttonStart.setEnabled(!isStarted);
         buttonStop.setEnabled(isStarted);
     }
 
     private void initAssets(){
         try {
-            initAsset("busybox");
             initAsset("php");
         } catch (Exception ignored){
         }
@@ -138,10 +147,8 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback{
 
     private void initAsset(String fileName) throws Exception{
         File asset = new File( FrameworkExecutor.appDirectory + "/" + fileName);
-        Log.d("GG", String.valueOf(asset.exists()));
         copyAsset(fileName, asset);
         asset.setExecutable(true, true);
-        Log.d("GG", String.valueOf(asset.exists()));
     }
 
     private void copyAsset(String name, File target) throws Exception {

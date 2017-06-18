@@ -39,7 +39,7 @@ public class FrameworkExecutor {
     }
 
     public static boolean isRunning() {
-        if (process == null){
+        if (process == null) {
             return true;
         }
         try {
@@ -50,9 +50,9 @@ public class FrameworkExecutor {
         return false;
     }
 
-    public static void runFramework() {
+    public static void run(String param) {
         File f = new File(getDataDirectory(), "tmp");
-        if (!f.isDirectory() && f.exists()) {
+        if (f.exists()) {
             f.delete();
         }
         f.mkdirs();
@@ -71,12 +71,12 @@ public class FrameworkExecutor {
             }
         }
         String[] args = new String[]{
-                    appDirectory + "/php",
-                    "-c",
-                    getDataDirectory() + "/php.ini",
-                    getDataDirectory() + file,
-                    "--enable-ansi"
-            };
+                appDirectory + "/php",
+                "-c",
+                getDataDirectory() + "/php.ini",
+                getDataDirectory() + file,
+                param
+        };
 
         ProcessBuilder builder = new ProcessBuilder(args);
         builder.redirectErrorStream(true);
@@ -127,7 +127,7 @@ public class FrameworkExecutor {
                             }
                         }
                     }
-                    ConsoleActivity.log("[" + MainActivity.name + "] Server was stopped.");
+                    ConsoleActivity.log("[" + MainActivity.name + "] Framework was stopped.");
                     MainActivity.actionHandler.obtainMessage(MainActivity.ACTION_STOP_SERVICE).sendToTarget();
                 }
             };
