@@ -3,6 +3,8 @@ package org.itxtech.simpleframework;
 import android.os.Environment;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * SimpleFramework Project
@@ -50,13 +52,13 @@ public class FrameworkExecutor {
         return false;
     }
 
-    public static void run(String param) {
+    public static void run(final String param) {
         File f = new File(getDataDirectory(), "tmp");
         if (f.exists()) {
             f.delete();
         }
         f.mkdirs();
-        String file = (new File(getDataDirectory(), "/SimpleFramework.phar").exists() ?
+        final String file = (new File(getDataDirectory(), "/SimpleFramework.phar").exists() ?
                 "/SimpleFramework.phar" : "/src/iTXTech/SimpleFramework/SimpleFramework.php");
         File ini = new File(getDataDirectory() + "/php.ini");
         if (!ini.exists()) {
@@ -70,13 +72,13 @@ public class FrameworkExecutor {
 
             }
         }
-        String[] args = new String[]{
-                appDirectory + "/php",
-                "-c",
-                getDataDirectory() + "/php.ini",
-                getDataDirectory() + file,
-                param
-        };
+        ArrayList<String> args = new ArrayList<String>(){{
+                add(appDirectory + "/php");
+                add("-c");
+                add(getDataDirectory() + "/php.ini");
+                add(getDataDirectory() + file);
+                addAll(Arrays.asList(param.split(" ")));
+        }};
 
         ProcessBuilder builder = new ProcessBuilder(args);
         builder.redirectErrorStream(true);
